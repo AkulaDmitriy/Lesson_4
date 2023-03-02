@@ -2,7 +2,6 @@ import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import javax.swing.*;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.*;
@@ -18,15 +17,14 @@ public class SelenideGithubTest {
     }
 
     @Test
-    void wikiSelenideGithubTest(){
+    void wikiSelenideGithubTest() {
         open("/selenide/selenide");
         $("#wiki-tab").click();
-        //$("#wiki-pages-box").$$("ul li").last().$(withText(",Show")).click();
         $(byXpath("//button[contains(@class,'f6 Link')]")).click();
         $("#wiki-pages-box").shouldBe(text("SoftAssertions"));
         $(byXpath("//a[@href='/selenide/selenide/wiki/SoftAssertions'][@data-view-component='true']")).click();
-        $(".markdown-body").shouldHave(text("Using JUnit5 extend test class:"));
-        $(".markdown-body").shouldHave(text("@ExtendWith({SoftAssertsExtension.class})\n" +
+        $(byXpath("//div[@class='markdown-body']//h4[3]")).shouldHave(text("Using JUnit5 extend test class:"));
+        $(byXpath("//div[@class='markdown-body']//h4[3]/following-sibling::div/pre")).shouldHave(text("@ExtendWith({SoftAssertsExtension.class})\n" +
                 "class Tests {\n" +
                 "  @Test\n" +
                 "  void test() {\n" +
